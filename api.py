@@ -1,4 +1,5 @@
 import requests
+from random import randint
 
 api_key = "SG_d18f5a44d75e6033"
 url = "https://api.segmind.com/v1/sd1.5-outpaint"
@@ -19,7 +20,7 @@ def request_api(img:str):
     "offset_y": 0,
     "guidance_scale": 7.5,
     "mask_expand": 8,
-    "seed": 124567
+    "seed": randint(100000,999999)
     }
 
     response = requests.post(url, json=data, headers={'x-api-key': api_key})
