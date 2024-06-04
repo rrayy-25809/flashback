@@ -5,7 +5,7 @@ import api
 def toB64(img_file):
     return str(b64encode(img_file.read()))[2:-1]
 
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 app = Flask(__name__)
 
 def allowed_file(filename:str):
