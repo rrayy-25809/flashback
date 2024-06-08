@@ -4,12 +4,12 @@ api_key = "SG_d18f5a44d75e6033"
 url = "https://api.segmind.com/v1/sd1.5-outpaint"
 count = 0
 
-def request_api(img:str, seed:int, position:int):
+def request_api(img:str, prompt:str ,seed:int, position:int):
     global count
     # Request payload
     data = {
     "image": f"{img}",
-    "prompt": "inside the building",
+    "prompt": prompt,
     "negative_prompt":"NONE",
     "scheduler": "DDIM",
     "num_inference_steps": 25,
@@ -21,7 +21,7 @@ def request_api(img:str, seed:int, position:int):
     "offset_y": 0,
     "guidance_scale": 7.5,
     "mask_expand": 8,
-    "seed": f"{seed}"
+    "seed": seed
     }
 
     response = requests.post(url, json=data, headers={'x-api-key': api_key})

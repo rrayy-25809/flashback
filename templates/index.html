@@ -8,10 +8,12 @@
     <link href="" rel="stylesheet">
   </head>
   <body>
-    <p>Flashback</p>
+    <h1>Flashback</h1>
+    <p>확장시킬 이미지와 이미지의 설명을 적어주세요</p>
     <form action="/post_image" method=post enctype=multipart/form-data>
       <input type=file name=file>
-      <input type=submit value=Upload>
+      <input type="text" name="prompt" placeholder="이미지의 설명">
+      <input type=submit value="확장하여 둘러보기">
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>

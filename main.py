@@ -8,14 +8,14 @@ import io
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico'])   #변환 가능한 확장자명들
 app = Flask(__name__) #서버 선언
 
-def convert_and_send(resized_img, seed, position):
+def convert_and_send(resized_img,prompt, seed, position):
     # 리사이즈된 이미지를 다시 파일 객체로 변환
     img_byte_arr = io.BytesIO()
     resized_img.save(img_byte_arr, format='JPEG')
     img_byte_arr.seek(0)
 
     # API 요청에 사용하기 위해 Base64로 변환
-    return api.request_api(toB64(img_byte_arr), seed, position)  # API 요청 보내기
+    return api.request_api(toB64(img_byte_arr),prompt, seed, position)  # API 요청 보내기
 
 def toB64(img_file:str):
     '''이미지를 API가 알아들을 수 있게 변환'''
@@ -39,6 +39,7 @@ def viewer():
 def post_image():
     if request.method != 'POST' : return redirect('/')  #파일이 제대로 입력받지 못했다면 메인페이지로 이동
     f = request.files['file']
+    prompt = request.form['prompt']
     if f and allowed_file(f.filename):  # 파일이 존재하고 변환 가능한 확장자 명을 가졌다면
         img = Image.open(io.BytesIO(f.read()))  # 이미지 파일을 읽고 Pillow로 열기
         width, height = img.size  # 이미지의 해상도 가져오기
@@ -61,8 +62,8 @@ def post_image():
         resized_img_2 = resized_img.crop((crop_width,0,new_width,new_height))
 
         seed = randint(100000,999999) #랜덤 시드 값
-        outpainted_img_1 = convert_and_send(resized_img_1, seed, 1024 - crop_width)
-        outpainted_img_2 = convert_and_send(resized_img_2, seed, 0)
+        outpainted_img_1 = convert_and_send(resized_img_1,prompt, seed, 1024 - crop_width)
+        outpainted_img_2 = convert_and_send(resized_img_2,prompt, seed, 0)
 
         if (outpainted_img_1!=None and outpainted_img_2!=None):
             image1 = Image.open(outpainted_img_1)
