@@ -16,7 +16,7 @@ config = {
     "prompt": "high mountain",  # 여기에서 프롬프트를 입력하세요
     "src_folder_path": "./src",
     "rgba_folder_path": "./rgba",
-    "dest_folder_path": "./dest",
+    "static_folder_path": "./static",
 }
 
 # OpenAI API 초기화
@@ -72,7 +72,7 @@ def validate_environment():
         raise ValueError("소스 이미지 또는 마스크 이미지가 존재하지 않습니다.")
     
     check_and_create_folder(config["rgba_folder_path"])
-    check_and_create_folder(config["dest_folder_path"])
+    check_and_create_folder(config["static_folder_path"])
     
     src_image = Image.open(f"{config['src_folder_path']}/{config['src_image_name']}")
     mask_image = Image.open(f"{config['src_folder_path']}/{config['mask_image_name']}")
@@ -104,12 +104,12 @@ def image_processing():
         
         images_data = process_images_with_openai(rgba_src_image_path, rgba_mask_image_path, config['prompt'], config['number_of_images'])
         
-        output_filename = f"{config['dest_folder_path']}/outputimage.png"
+        output_filename = f"{config['static_folder_path']}/outputimage.png"
         
         for idx, data in enumerate(images_data):
             download_and_save_image(data['url'], output_filename)
             print(f"{idx + 1}번째 이미지가 성공적으로 다운로드되었습니다.")
-            
+
             # 이미지 크기 조정 (필요한 경우)
             resize_image(output_filename, 2048, 1024)
             
@@ -117,14 +117,17 @@ def image_processing():
         print(f"오류: {e}")
         return
 
-def ask_user():
-    while True:
-        answer = input("이미지 처리를 시작하시겠습니까? (y/n): ").strip().lower()
-        if answer == 'y':
-            image_processing()
-        else:
-            print("프로그램이 종료되었습니다.")
-            break
+# def ask_user():
+#     while True:
+#         answer = input("이미지 처리를 시작하시겠습니까? (y/n): ").strip().lower()
+#         if answer == 'y':
+#             image_processing()
+#         else:
+#             print("프로그램이 종료되었습니다.")
+#             break
+
 
 if __name__ == "__main__":
-    ask_user()
+    print("eww")
+    image_processing()
+    # ask_user()
