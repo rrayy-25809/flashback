@@ -4,6 +4,7 @@ from PIL import Image
 import io
 import app as apppppp
 import img_generating_clear_canvas
+import img_prompt
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico'])   #변환 가능한 확장자명들
 app = Flask(__name__) #서버 선언
@@ -68,4 +69,5 @@ def image_resize(img:Image):
     return resized_img
 
 if __name__ == '__main__':  #C언어의 main 함수와 같은 개념의 조건문
-    app.run(debug=True,host='0.0.0.0')
+    apppppp.run(debug=True,host='0.0.0.0')
+    img_prompt.main()
