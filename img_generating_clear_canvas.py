@@ -4,7 +4,7 @@ def canvas_clear() :
     new_image = Image.open("static/original_image.png")
 
     # Create a new transparent canvas
-    canvas_size = (2042, 1021)
+    canvas_size = (4024, 2048)
     new_canvas = Image.new("RGBA", canvas_size, (255, 255, 255, 0))
 
     # Calculate position to center the new image on the canvas
