@@ -2,12 +2,12 @@ from flask import Flask, render_template, request, redirect
 from base64 import b64encode
 from PIL import Image
 import io
-import app as apppppp
+import app
 import img_generating_clear_canvas
 import img_prompt
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico'])   #변환 가능한 확장자명들
-app = Flask(__name__) #서버 선언
+flask = Flask(__name__) #서버 선언
 
 def convert_and_send(resized_img, prompt, seed, position):
     # 리사이즈된 이미지를 다시 파일 객체로 변환
@@ -28,15 +28,15 @@ def allowed_file(filename:str):
         return  True
     return False
 
-@app.route("/")
+@flask.route("/")
 def main():
     return render_template("index.html")#메인페이지
 
-@app.route("/viewer")
+@flask.route("/viewer")
 def viewer():
     return render_template("viewer.html")
 
-@app.route("/post_image", methods=['POST'])
+@flask.route("/post_image", methods=['POST'])
 def post_image():
     if request.method != 'POST' : return redirect('/')  #파일이 제대로 입력받지 못했다면 메인페이지로 이동
     f = request.files['file']
@@ -48,7 +48,7 @@ def post_image():
         img.save("static/original_image.png","PNG")
         img_generating_clear_canvas.canvas_clear() #이미지에 투명 캔버스 씌우는 코드
         # print("wddf") 
-        apppppp.image_processing()  #변환된 이미지를 outpainting하는 코드
+        app.image_processing()  #변환된 이미지를 outpainting하는 코드
 
         return redirect("/viewer")
     else:
@@ -69,5 +69,4 @@ def image_resize(img:Image):
     return resized_img
 
 if __name__ == '__main__':  #C언어의 main 함수와 같은 개념의 조건문
-    apppppp.run(debug=True,host='0.0.0.0')
-    img_prompt.main()
+    flask.run(debug=True,host='0.0.0.0')
