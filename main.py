@@ -36,6 +36,17 @@ def main():
 def viewer():
     return render_template("viewer.html")
 
+@flask.route("/start/<string:page>") #후에 추가될 화면의 함수
+def start(page):
+    """하지만 Flask에서 내부링크를 연결하기 위한 사용법
+    <a hre="{{url_for('index')}}"> 이동 </a>"""
+    if page=="extend":
+        return render_template("IDK.html")
+    elif page=="remix":
+        return render_template("IDK.html")
+    else:
+        return render_template("IDK.html")
+
 @flask.route("/post_image", methods=['POST'])
 def post_image():
     if request.method != 'POST' : return redirect('/')  #파일이 제대로 입력받지 못했다면 메인페이지로 이동
