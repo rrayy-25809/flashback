@@ -9,19 +9,6 @@ import img_prompt
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico'])   #변환 가능한 확장자명들
 flask = Flask(__name__) #서버 선언
 
-def convert_and_send(resized_img, prompt, seed, position):
-    # 리사이즈된 이미지를 다시 파일 객체로 변환
-    img_byte_arr = io.BytesIO()
-    resized_img.save(img_byte_arr, format='JPEG')
-    img_byte_arr.seek(0)
-
-    # API 요청에 사용하기 위해 Base64로 변환
-    #return api.request_api(toB64(img_byte_arr),prompt, seed, position)  # API 요청 보내기
-
-def toB64(img_file:str):
-    '''이미지를 API가 알아들을 수 있게 변환'''
-    return str(b64encode(img_file.read()))[2:-1]
-
 def allowed_file(filename:str):
     '''이미지가 변환 가능한 확장자 명을 가졌는지 확인'''
     if '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS:
@@ -41,7 +28,7 @@ def start(page):
     """하지만 Flask에서 내부링크를 연결하기 위한 사용법
     <a hre="{{url_for('index')}}"> 이동 </a>"""
     if page=="extend":
-        return render_template("IDK.html")
+        return render_template("IDKsd.html")
     elif page=="remix":
         return render_template("IDK.html")
     else:
