@@ -23,16 +23,22 @@ def main():
 def viewer():
     return render_template("viewer.html")
 
+@flask.route("/output")
+def output():
+    return render_template("output.html")
+
+@flask.route("/information")
+def info():
+    return render_template("info.html")
+
 @flask.route("/start/<string:page>") #후에 추가될 화면의 함수
 def start(page):
-    """하지만 Flask에서 내부링크를 연결하기 위한 사용법
-    <a hre="{{url_for('index')}}"> 이동 </a>"""
     if page=="extend":
-        return render_template("IDKsd.html")
+        return render_template("input.html")
     elif page=="remix":
-        return render_template("IDK.html")
+        return render_template("remix.html")
     else:
-        return render_template("IDK.html")
+        return render_template("start.html")
 
 @flask.route("/post_image", methods=['POST'])
 def post_image():
@@ -48,7 +54,7 @@ def post_image():
         # print("wddf") 
         app.image_processing()  #변환된 이미지를 outpainting하는 코드
 
-        return redirect("/viewer")
+        return redirect("/output")
     else:
         raise Exception(f"{f.filename} 파일에 예상하지 못한 오류가 존재합니다.")
 
