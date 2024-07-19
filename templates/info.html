@@ -11,7 +11,7 @@
     <link href="{{ url_for('static', filename='style.css')}}" rel="stylesheet">
     <style>
       body{
-        background-image: url("{{ url_for('static', filename='info.png')}}");
+        background-image: url("{{ url_for('static', filename='intro.png')}}");
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -24,11 +24,11 @@
           <h1 class="program-title">What is Our Program?</h1>
           <p class="program-description">FlashBack은 완전히 새로운 방식의 우울증 치료 프로그램으로, 환자의 행복했던 기억이 담긴 사진을 확장하여 VR파일로 제공해 실감나는 경험을 제공합니다.</p>
           <div class="images">
-            <img loading="lazy" src="origin.png" class="main-image"/>
-            <img loading="lazy" src="arrow 2.png" class="arrow-extend"/>
-            <img loading="lazy" src="extended.png" class="extended-image"/>
-            <img loading="lazy" src="vr.png" class="vr-image"/>
-            <img loading="lazy" src="arrow 1.png" class="aroow-vr"/>
+            <img loading="lazy" src="{{ url_for('static', filename='origin.png')}}" class="main-image"/>
+            <img loading="lazy" src="{{ url_for('static', filename='arrow 2.png')}}" class="arrow-extend"/>
+            <img loading="lazy" src="{{ url_for('static', filename='extended.png')}}" class="extended-image"/>
+            <img loading="lazy" src="{{ url_for('static', filename='vr.png')}}" class="vr-image"/>
+            <img loading="lazy" src="{{ url_for('static', filename='arrow 1.png')}}" class="aroow-vr"/>
           </div>
         </div>
       </section>
