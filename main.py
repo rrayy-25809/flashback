@@ -43,8 +43,9 @@ def start(page):
 @flask.route("/post_image", methods=['POST'])
 def post_image():
     if request.method != 'POST' : return redirect('/')  #파일이 제대로 입력받지 못했다면 메인페이지로 이동
-    f = request.files['file']
+    f = request.files['image']
     prompt = request.form['prompt']
+    print(f.name+prompt)
     """if prompt==None:
         prompt = generate_prompt()"""
     if f and allowed_file(f.filename):  # 파일이 존재하고 변환 가능한 확장자 명을 가졌다면

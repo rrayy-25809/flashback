@@ -27,7 +27,7 @@ processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
 
 def ask_openai():
     response = openai.ChatCompletion.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         messages=[
             {"role":"system", "content":"이미지를 분석하고 그 결과를 토대로 outpainting을 하는 역할이야"},
             # {"role":"user", "content":f"이미지를 분석하고 이 이미지가 어떤 곳에 있는 이미지인지 생각하고 출력해. 그 후 이 이미지를 outpainting 해야하는데 너가 분석한 이미지의 특징을 토대로 이미지를 outpainting 할 때 주변에 무엇이 있어야하는지 단어로. 그 단어만 이야기해. 이미지를 분석하고, 이미지의 요소를 파악한 후 이미지 주변에 어떤 풍경이 있어야 좋을지 판단해서 보내. 너무 여러개를 뽑을 생각 하지 말고 원본 이미지에 더 기반해서 말해: {imgs}"},
