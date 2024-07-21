@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect
-from base64 import b64encode
 from PIL import Image
 import io
 import app
@@ -44,17 +43,16 @@ def start(page):
 def post_image():
     if request.method != 'POST' : return redirect('/')  #파일이 제대로 입력받지 못했다면 메인페이지로 이동
     f = request.files['image']
-    prompt = request.form['prompt']
-    print(f.name+prompt)
-    """if prompt==None:
-        prompt = generate_prompt()"""
+    description = request.form['prompt']
+    prompt = img_prompt.ask_openai(description) #입력한 설명을 토대로 프롬포트 생성
+
     if f and allowed_file(f.filename):  # 파일이 존재하고 변환 가능한 확장자 명을 가졌다면
         img = image_resize(Image.open(io.BytesIO(f.read())))  # 이미지 파일을 읽고 Pillow로 열기
         img.save("static/original_image.png","PNG")
         img_generating_clear_canvas.canvas_clear() #이미지에 투명 캔버스 씌우는 코드
-        # print("wddf") 
-        app.image_processing()  #변환된 이미지를 outpainting하는 코드
 
+        app.config["prompt"] = prompt #생성된 프롬포트를 openai에게 전송
+        app.image_processing()  #변환된 이미지를 outpainting하는 코드
         return redirect("/output")
     else:
         raise Exception(f"{f.filename} 파일에 예상하지 못한 오류가 존재합니다.")

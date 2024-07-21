@@ -1,14 +1,13 @@
 import os
 import requests
 from PIL import Image
-from io import BytesIO
 import openai
 from dotenv import load_dotenv
 
 # 환경 변수 로드
 load_dotenv()
 
-# 구성 설정
+# 구성 설정(딕셔너리 형태)
 config = {
     "src_image_name": "src.png",
     "mask_image_name": "mask.png",

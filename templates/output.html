@@ -24,8 +24,8 @@
         <h1 class="program-title">Product</h1>
         <img src="{{ url_for('static', filename='outputimage.png')}}" style="width: 360px; display: block; margin: 0 auto; margin-top: 129px;">
         <div class="d-grid gap-2 d-md-block" style="margin-top: 26px;">
-          <a href="choo.html" class="flb-btn btn btn-success" type="button">Download</a>
-          <a href="asdfasdf" class="flb-btn btn btn-success" type="button">Make image again</a>
+          <a href="{{ url_for('static', filename='outputimage.png')}}" download class="flb-btn btn btn-success" type="button">Download</a>
+          <a href="/start/extend" class="flb-btn btn btn-success" type="button">Make image again</a>
         </div>
       </div>
     </section>
