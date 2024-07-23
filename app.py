@@ -90,7 +90,7 @@ def resize_image(image_path, width, height):
         raise
 
 # 핵심 함수
-def image_processing():
+def image_processing(file_name:str):
     try:
         validate_environment()
         print("환경이 성공적으로 검증되었습니다.")
@@ -103,7 +103,7 @@ def image_processing():
         
         images_data = process_images_with_openai(rgba_src_image_path, rgba_mask_image_path, config['prompt'], config['number_of_images'])
         
-        output_filename = f"{config['static_folder_path']}/outputimage.png"
+        output_filename = f"{config['static_folder_path']}/{file_name}.png"
         
         for idx, data in enumerate(images_data):
             download_and_save_image(data['url'], output_filename)

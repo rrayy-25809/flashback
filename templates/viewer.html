@@ -21,7 +21,7 @@
             document.addEventListener('DOMContentLoaded', function () {
                 var scene = document.createElement('a-scene');
                 var sky = document.createElement('a-sky');
-                sky.setAttribute('src', "{{ url_for('static', filename='outputimage.png')}}");
+                sky.setAttribute('src', "static/{{file}}.png");
                 scene.appendChild(sky);
                 document.getElementById('vr').appendChild(scene);
             });
