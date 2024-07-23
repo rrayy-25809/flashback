@@ -59,7 +59,12 @@ def post_remix():
 
     request_outpainting(f,prompt)
     return redirect("/output")
-    
+
+@flask.route("/request_again")
+def request_again():
+    request_outpainting(session["file"],session["prompt"])
+    return redirect("/output")
+
 def image_resize(img:Image):
     width,height = img.size
     if width>=height:
@@ -75,6 +80,8 @@ def image_resize(img:Image):
     return resized_img
 
 def request_outpainting(f,prompt:str):
+    session["file"] = f
+    session["prompt"] = prompt
     if f and allowed_file(f.filename):  # 파일이 존재하고 변환 가능한 확장자 명을 가졌다면
         img = image_resize(Image.open(io.BytesIO(f.read())))  # 이미지 파일을 읽고 Pillow로 열기
         img.save("static/original_image.png","PNG")
