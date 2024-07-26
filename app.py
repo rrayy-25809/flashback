@@ -1,10 +1,8 @@
-from PIL import Image, ImageDraw
-import numpy as np
 import os
 import requests
+from PIL import Image
 import openai
 from dotenv import load_dotenv
-from collections import Counter
 
 # 환경 변수 로드
 load_dotenv()
@@ -91,28 +89,8 @@ def resize_image(image_path, width, height):
         print(f"이미지를 리사이즈하는 중 오류 발생: {e}")
         raise
 
-def create_extended_image_and_mask(src_image_path, extended_image_path, mask_image_path, new_height):
-    try:
-        with Image.open(src_image_path) as img:
-            original_width, original_height = img.size
-            
-            # 새로운 이미지와 마스크 생성
-            new_image = Image.new("RGBA", (original_width, new_height), (255, 255, 255, 0))
-            new_image.paste(img, (0, new_height - original_height))
-            
-            mask = Image.new("L", (original_width, new_height), 0)
-            draw = ImageDraw.Draw(mask)
-            draw.rectangle([0, 0, original_width, new_height - original_height], fill=255)
-            
-            new_image.save(extended_image_path)
-            mask.save(mask_image_path)
-            print(f"확장된 이미지와 마스크가 생성되었습니다.")
-    except Exception as e:
-        print(f"이미지와 마스크를 생성하는 중 오류 발생: {e}")
-        raise
-
 # 핵심 함수
-def image_processing(file_name: str):
+def image_processing(file_name:str):
     try:
         validate_environment()
         print("환경이 성공적으로 검증되었습니다.")
@@ -123,13 +101,7 @@ def image_processing(file_name: str):
         convert_image_to_rgba(f"{config['src_folder_path']}/{config['src_image_name']}", rgba_src_image_path)
         convert_image_to_rgba(f"{config['src_folder_path']}/{config['mask_image_name']}", rgba_mask_image_path)
         
-        # 이미지와 마스크 확장
-        new_height = 2 * Image.open(rgba_src_image_path).size[1]  # 새로운 높이를 원래 높이의 두 배로 설정
-        extended_image_path = f"{config['rgba_folder_path']}/extended_{config['src_image_name']}"
-        extended_mask_image_path = f"{config['rgba_folder_path']}/extended_{config['mask_image_name']}"
-        create_extended_image_and_mask(rgba_src_image_path, extended_image_path, extended_mask_image_path, new_height)
-        
-        images_data = process_images_with_openai(extended_image_path, extended_mask_image_path, config['prompt'], config['number_of_images'])
+        images_data = process_images_with_openai(rgba_src_image_path, rgba_mask_image_path, config['prompt'], config['number_of_images'])
         
         output_filename = f"{config['static_folder_path']}/{file_name}.png"
         
@@ -145,4 +117,5 @@ def image_processing(file_name: str):
         return
 
 if __name__ == "__main__":
-    image_processing("output_image")
+    image_processing()
+    # ask_user()
