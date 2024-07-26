@@ -105,6 +105,7 @@ def request_outpainting(f:bytes, prompt:str):
 
     app.config["prompt"] = prompt #생성된 프롬포트를 openai에게 전송
     app.image_processing(file_name)  #변환된 이미지를 outpainting하는 코드
+    img_generating_clear_canvas.after_process_image(file_name) 
 
 
 if __name__ == '__main__':  #C언어의 main 함수와 같은 개념의 조건문
