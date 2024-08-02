@@ -5,7 +5,6 @@ import app
 import img_generating_clear_canvas
 import img_prompt
 from random import randint
-from waitress import serve
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico'])   #변환 가능한 확장자명들
 flask = Flask(__name__) #서버 선언
@@ -110,4 +109,3 @@ def request_outpainting(f:bytes, prompt:str):
 
 if __name__ == '__main__':  #C언어의 main 함수와 같은 개념의 조건문
     flask.run(debug=True,host='0.0.0.0')
-    #serve(flask, host='0.0.0.0', port=5000)
