@@ -5,6 +5,8 @@ import app
 import img_generating_clear_canvas
 import img_prompt
 from random import randint
+import illegal_pormpt
+import send_to_viewer
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico'])   #변환 가능한 확장자명들
 flask = Flask(__name__) #서버 선언
@@ -26,7 +28,7 @@ def main():
 
 @flask.route("/viewer")
 def viewer():
-    return render_template("viewer.html",file=file_name)
+    send_to_viewer.upload_file(file)
 
 @flask.route("/output")
 def output():
@@ -91,6 +93,7 @@ def image_resize(img:Image):
 
 def request_outpainting(f:bytes, prompt:str):
     global file
+    illegal_pormpt.illegal_prompt1(prompt)
     global gbprompt
     global file_name
     file = f
@@ -104,7 +107,7 @@ def request_outpainting(f:bytes, prompt:str):
 
     app.config["prompt"] = prompt #생성된 프롬포트를 openai에게 전송
     app.image_processing(file_name)  #변환된 이미지를 outpainting하는 코드
-    img_generating_clear_canvas.after_process_image(file_name) 
+    img_generating_clear_canvas.after_process_image(file_name)  
 
 
 if __name__ == '__main__':  #C언어의 main 함수와 같은 개념의 조건문
