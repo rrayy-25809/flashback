@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>360 VR result</title>
+    <style>
+      body,html {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      #vr {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="vr"></div>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var scene = document.createElement("a-scene");
+        var sky = document.createElement("a-sky");
+        sky.setAttribute("src", "static/{{file}}.png");
+        scene.appendChild(sky);
+        document.getElementById("vr").appendChild(scene);
+      });
+    </script>
+  </body>
+</html>
