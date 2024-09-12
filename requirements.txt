@@ -48,6 +48,5 @@ tqdm==4.66.4
 transformers==4.42.4
 typing_extensions==4.12.2
 urllib3==2.2.1
-waitress==3.0.0
 Werkzeug==2.2.2
 yarl==1.9.4
