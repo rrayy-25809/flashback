@@ -28,10 +28,6 @@ def main():
 def viewer():
     return render_template("viewer.html",file=file_name)
 
-@flask.route("/output")
-def output():
-    return render_template("output.html",file=file_name)
-
 @flask.route("/information")
 def info():
     return render_template("info.html")
@@ -56,23 +52,6 @@ def post_image():
         request_outpainting(f.read(),prompt)
     else:
         raise Exception(f"{f.filename} 파일에 예상하지 못한 오류가 존재합니다.")
-    return redirect("/output")
-     
-@flask.route("/post_remix", methods=['POST'])
-def post_remix():
-    if request.method != 'POST' : return redirect('/')  #파일이 제대로 입력받지 못했다면 메인페이지로 이동
-    f = request.files['image']
-    prompt = request.form['prompt'] #프롬포트 생성대신 직접 받은 프롬포트 사용
-
-    if f and allowed_file(f.filename):  # 파일이 존재하고 변환 가능한 확장자 명을 가졌다면
-        request_outpainting(f.read(),prompt)
-    else:
-        raise Exception(f"{f.filename} 파일에 예상하지 못한 오류가 존재합니다.")
-    return redirect("/output")
-
-@flask.route("/request_again")
-def request_again():
-    request_outpainting(file,gbprompt)
     return redirect("/output")
 
 def image_resize(img:Image):
