@@ -46,7 +46,7 @@ def post_image():
     else:
         return "Unsupported file format or no file uploaded.", 400
 
-    return redirect("/output")
+    return file_name
 
 def image_resize(img: Image) -> Image:
     """Resize the image to a maximum of 2048x2048 while maintaining aspect ratio."""
