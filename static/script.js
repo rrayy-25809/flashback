@@ -8,7 +8,7 @@ function output_image(img) {
         <h5>Explain Storyboard</h5>
         <textarea placeholder="Describe the storyboard here"></textarea>
         <div class="buttons">
-            <button class="button-vr" onclick="window.open('viewer.html')"></button>
+            <button class="button-vr" onclick="window.open('/viewer')"></button>
             <button class="button-next" onclick="next()"></button>
         </div>
     </div>
@@ -41,7 +41,7 @@ function generate() {
     setTimeout(() => {
         hideLoading();  // 로딩 오버레이 숨기기
         alert(`${checkbox.checked} ${image_input.tagName} ${prompt_input}`);  // 체크박스, 이미지 입력, 텍스트 입력 값 확인
-        output.innerHTML = output_image("/img/test_image.png");  // 이미지와 스토리보드 출력
+        output.innerHTML = output_image("/static/test_image.png");  // 이미지와 스토리보드 출력
     }, 3000); // 3초 뒤에 로딩 화면 숨김 (예시)
 }
 
