@@ -110,7 +110,7 @@ def image_processing(file_name:str):
             print(f"{idx + 1}번째 이미지가 성공적으로 다운로드되었습니다.")
 
             # 이미지 크기 조정 (필요한 경우)
-            resize_image(output_filename, 5048, 1682)
+            resize_image(output_filename, 5048, 2200)
             
     except Exception as e:
         print(f"오류: {e}")

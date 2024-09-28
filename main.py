@@ -20,7 +20,7 @@ def main():
 
 @flask.route("/viewer")
 def viewer():
-    return render_template("viewer.html",file=session['file_name'])
+    return render_template("viewer.html",file=session['file_name']+'_faded')
 
 @flask.route("/information")
 def info():
