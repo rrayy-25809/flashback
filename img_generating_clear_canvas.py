@@ -51,8 +51,11 @@ def after_process_image(file_path: Image):
     # Paste the new image onto the transparent canvas
     new_canvas.paste(new_image, position, new_image.convert("RGBA"))
     
-    new_outoutput_path=f"static/{file_path}.png"
+    new_outoutput_path=f"static/{file_path}_faded.png"
     new_canvas.save(new_outoutput_path)
+
+
+
 
 def fade_edges(img:Image, fade_width=10, fade_height=20):
     # 이미지 로드
