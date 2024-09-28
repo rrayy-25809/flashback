@@ -8,7 +8,7 @@ function output_image(img) {
     <img class="output-image rounded-4" src="${img}" />
     <div class="storyboard">
         <h5>Explain Storyboard</h5>
-        <textarea placeholder="Describe the storyboard here"></textarea>
+        <textarea id="storyboard" placeholder="Describe the storyboard here"></textarea>
         <div class="buttons">
             <button class="button-vr" onclick="window.open('/viewer')"></button>
             <button class="button-next" onclick="next()"></button>
@@ -71,6 +71,7 @@ function generate() {
 
 // 다음 단계를 처리하는 함수
 function next() {
+    const storyboard = document.getElementById("storyboard").value;
     showLoading();  // 로딩 오버레이 표시
 
     // 필요한 처리 로직 추가
