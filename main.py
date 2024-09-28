@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, session
 from PIL import Image
-import io
 import app
 import img_generating_clear_canvas
 import img_prompt
 from random import randint
+import illegal_pormpt
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico'}
 flask = Flask(__name__)
@@ -31,7 +31,7 @@ def input_page():
     return render_template("input.html")
 
 def image_resize(img: Image) -> Image:
-    """Resize the image to a maximum of 2048x2048 while maintaining aspect ratio."""
+    """이미지를 같은 비율의 크기로 리사이즈 하는 함수(최대 2048 X 2048ㄴ)"""
     width, height = img.size
     new_size = (2048, int((height / width) * 2048)) if width >= height else (int((width / height) * 2048), 2048)
 
@@ -46,6 +46,8 @@ def post_image():
 
     # 파일 존재 및 지원 형식 확인
     if f and allowed_file(f.filename):
+        if illegal_pormpt.illegal_prompt1(description):
+            return "프롬포트 에러", 400
         prompt = img_prompt.ask_openai(description)  # OpenAI에서 프롬프트 생성
         session['file_name'] = str(randint(1, 999))  # 랜덤 파일 이름 생성
         
@@ -61,7 +63,7 @@ def post_image():
 
         return session['file_name']  # 처리된 파일 이름 반환
     else:
-        return "Unsupported file format or no file uploaded.", 400
+        return "파일이 전송되지 않았거나 지원하지 않는 방식입니다.", 400
 
 if __name__ == '__main__':  #C언어의 main 함수와 같은 개념의 조건문
     flask.run(debug=True,host='0.0.0.0')

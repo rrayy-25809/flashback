@@ -52,7 +52,9 @@ function generate() {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('네트워크 응답이 좋지 않습니다: ' + response.statusText);
+                alert("요청을 보내는 중 문제가 발생했습니다. 이미지와 프롬포트가 적절한지 확인하세요.");
+                hideLoading();
+                throw new Error(response.statusText);
             }
             return response.text(); // 응답을 텍스트로 변환
         })
