@@ -1,4 +1,3 @@
-const checkbox = document.getElementById('flexSwitchCheckDefault');
 var sliced = location.href.slice(0, -5);
 const url = sliced+'post_image'; // 요청을 보낼 URL
 
@@ -38,13 +37,15 @@ function generate() {
     const file = image_input.files[0]; // 선택된 파일 가져오기
     const prompt_input = document.getElementById("prompt-input").value;  // 텍스트 입력 값 가져오기
     const output = document.getElementById("right");
-    console.log(file)
+    const checkbox = document.getElementById('flexSwitchCheckDefault');
+    //console.log(checkbox.checked)
     if (file) {
         showLoading();  // 로딩 오버레이 표시
         const formData = new FormData();
         formData.append('image', file); // 파일을 FormData에 추가
         formData.append('prompt',prompt_input)
-
+        formData.append('is_remix',checkbox.checked)
+        
         // fetch 요청
         fetch(url, {
             method: 'POST',
