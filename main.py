@@ -43,12 +43,16 @@ def image_resize(img: Image) -> Image:
 def post_image():
     f = request.files.get('image')
     description = request.form.get('prompt', '')
+    is_remix = "true"==request.form.get('is_remix')
 
     # 파일 존재 및 지원 형식 확인
     if f and allowed_file(f.filename):
         if illegal_pormpt.illegal_prompt1(description):
             return "프롬포트 에러", 400
-        prompt = img_prompt.ask_openai(description)  # OpenAI에서 프롬프트 생성
+        if is_remix:
+            prompt = description
+        else:
+            prompt = img_prompt.ask_openai(description)  # OpenAI에서 프롬프트 생성
         session['file_name'] = str(randint(1, 999))  # 랜덤 파일 이름 생성
         
         # 이미지 처리
