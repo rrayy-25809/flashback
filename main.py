@@ -5,6 +5,7 @@ import img_generating_clear_canvas
 import img_prompt
 from random import randint
 import illegal_pormpt
+import img_to_mp4
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico'}
 flask = Flask(__name__)
@@ -21,6 +22,10 @@ def main():
 @flask.route("/viewer")
 def viewer():
     return render_template("viewer.html",file=session['file_name']+'_faded')
+
+@flask.route("/viewer_video/<string:url>")
+def viewer_video(url):
+    return render_template("viewer_video.html",file=url)
 
 @flask.route("/information")
 def info():
@@ -68,6 +73,13 @@ def post_image():
         return session['file_name']  # 처리된 파일 이름 반환
     else:
         return "파일이 전송되지 않았거나 지원하지 않는 방식입니다.", 400
+    
+@flask.route("/post_video", methods=['POST'])
+def post_video():
+    Storyboard = request.form.get("storyboard","")
+    file_name = session['file_name']
+    video_url = img_to_mp4.video_generate(file_name,Storyboard)
+    return video_url
 
 if __name__ == '__main__':  #C언어의 main 함수와 같은 개념의 조건문
     flask.run(debug=True,host='0.0.0.0')

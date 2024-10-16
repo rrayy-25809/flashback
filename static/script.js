@@ -1,5 +1,6 @@
 var sliced = location.href.slice(0, -5);
-const url = sliced+'post_image'; // 요청을 보낼 URL
+const post_image = sliced+'post_image'; // 요청을 보낼 URL
+const post_video = sliced+'post_video'; // 요청을 보낼 URL
 
 // 이미지와 스토리보드 HTML 템플릿을 반환하는 함수
 function output_image(img) {
@@ -47,7 +48,7 @@ function generate() {
         formData.append('is_remix',checkbox.checked)
         
         // fetch 요청
-        fetch(url, {
+        fetch(post_image, {
             method: 'POST',
             body: formData, // FormData 객체를 body에 전달
         })
@@ -76,9 +77,26 @@ function generate() {
 function next() {
     const storyboard = document.getElementById("storyboard").value;
     showLoading();  // 로딩 오버레이 표시
-
-    // 필요한 처리 로직 추가
-    setTimeout(() => {
+    const formData = new FormData();
+    formData.append("storyboard",storyboard)
+    fetch(post_video, {
+        method: 'POST',
+        body: formData, // FormData 객체를 body에 전달
+    })
+    .then(response => {
+        if (!response.ok) {
+            alert("요청을 보내는 중 문제가 발생했습니다. 다시 시도해 주세요.");
+            hideLoading();
+            throw new Error(response.statusText);
+        }
+        return response.text(); // 응답을 텍스트로 변환
+    })
+    .then(data => {
+        console.log('성공:', data);
         hideLoading();  // 로딩 오버레이 숨기기
-    }, 3000); // 3초 뒤에 로딩 화면 숨김 (예시)
+        window.open(`/viewer_video/${data}`)
+    })
+    .catch(error => {
+        console.log('오류:', error);
+    });
 }

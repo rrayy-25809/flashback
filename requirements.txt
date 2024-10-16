@@ -50,3 +50,4 @@ typing_extensions==4.12.2
 urllib3==2.2.1
 Werkzeug==2.2.2
 yarl==1.9.4
+runwayml==2.0.0
