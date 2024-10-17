@@ -38,7 +38,7 @@ def input_page():
 def image_resize(img: Image) -> Image:
     """이미지를 같은 비율의 크기로 리사이즈 하는 함수(최대 2048 X 2048ㄴ)"""
     width, height = img.size
-    new_size = (2048, int((height / width) * 2048)) if width >= height else (int((width / height) * 2048), 2048)
+    new_size = (1024, int((height / width) * 1024)) if width >= height else (int((width / height) * 1024), 1024)
 
     resized_img = img.resize(new_size, Image.LANCZOS)
     print(f"Resized resolution: {new_size[0]}x{new_size[1]}")
