@@ -36,7 +36,7 @@ def input_page():
     return render_template("input.html")
 
 def image_resize(img: Image) -> Image:
-    """이미지를 같은 비율의 크기로 리사이즈 하는 함수(최대 2048 X 2048ㄴ)"""
+    """이미지를 같은 비율의 크기로 리사이즈 하는 함수(최대 1024 X 1024)"""
     width, height = img.size
     new_size = (1024, int((height / width) * 1024)) if width >= height else (int((width / height) * 1024), 1024)
 

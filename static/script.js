@@ -1,13 +1,16 @@
 var sliced = location.href.slice(0, -5);
 const post_image = sliced+'post_image'; // 요청을 보낼 URL
 const post_video = sliced+'post_video'; // 요청을 보낼 URL
-
+//for test: document.body.innerHTML = output_image('/static/675.png')
 // 이미지와 스토리보드 HTML 템플릿을 반환하는 함수
 function output_image(img) {
     const output_image = `
+    <div class="top_bar">
+      <a href="/"><img src="static/small_logo.png" width="140"/></a>
+    </div>
     <img class="output-image rounded-4" src="${img}" />
     <div class="storyboard">
-        <h5>Explain Storyboard</h5>
+        <h6>Explain Storyboard</h6>
         <textarea id="storyboard" placeholder="Describe the storyboard here"></textarea>
         <div class="buttons">
             <button class="button-vr" onclick="window.open('/viewer')"></button>

@@ -33,7 +33,7 @@ def after_process_image(file_path: Image):
     new_image = fade_edges(new_image)
 
     # Create a new transparent canvas
-    width, height = (2524, 1900)
+    width, height = (2200, 1900)
     top_color, bottom_color = split_and_find_colors(new_image)
     new_canvas = Image.new("RGBA", (width, height))
 
