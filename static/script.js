@@ -63,7 +63,7 @@ function generate() {
         .then(data => {
             console.log('성공:', data);
             hideLoading();  // 로딩 오버레이 숨기기
-            output.innerHTML = output_image(`/static/${data}.png`);  // 이미지와 스토리보드 출력
+            document.body.innerHTML = output_image(`/static/${data}.png`);  // 이미지와 스토리보드 출력
         })
         .catch(error => {
             console.log('오류:', error);

@@ -11,37 +11,29 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="static/style.css">
   </head>
-  <body>
-    <div class="split-box">
-      <div class="left">
-        <div class="top_bar">
-          <a href="/"><img src="static/small_logo.png" width="140"/></a>
-        </div>
-        <div id="input-form">
-          <div class="form-check form-switch">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Remix mode</label>
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-          </div>
-          <div class="custom-input">
-            <h5>Upload Image</h5>
-            <label class="rounded-3" for="image-input">Upload</label>
-            <input type="file" id="image-input" name="image">
-          </div>
-          <div class="custom-input">
-            <h5>Explain Your image</h5>
-            <textarea class="rounded-3" id="prompt-input" form="input-form" placeholder="Explain The background you would like to add around"></textarea>
-          </div>
-          <input type="submit" class="img-button" value="" onclick="generate()">
-        </div>
+  <body style="background-color: black;">
+    <div class="top_bar">
+      <a href="/"><img src="static/small_logo.png" width="140"/></a>
+    </div>
+    <div id="input-form">
+      <div class="form-check form-switch">
+        <label class="form-check-label" for="flexSwitchCheckDefault" style="color: white;">Remix mode</label>
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
       </div>
-      <div id="right">
-        <h2>Make image</h2>
-        <!-- 로딩 오버레이 추가 -->
-        <div id="loading-overlay">
-          <div class="spinner-border text-secondary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
+      <div class="custom-input">
+        <h5 style="color: white;">Upload Image</h5>
+        <label class="rounded-3" for="image-input">Upload</label>
+        <input type="file" id="image-input" name="image">
+      </div>
+      <div class="custom-input">
+        <h5 style="color: white;">Explain Your image</h5>
+        <textarea class="rounded-3" id="prompt-input" form="input-form" placeholder="Explain The background you would like to add around"></textarea>
+      </div>
+      <input type="submit" class="img-button" value="" onclick="generate()">
+    </div>
+    <div id="loading-overlay">
+      <div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
     </div>
     <script src="static/script.js"></script>
