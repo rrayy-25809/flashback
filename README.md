@@ -9,8 +9,7 @@ language
 
 library
 
-<img src="https://img.shields.io/badge/Flask-3776AB?style=flat-square&logo=flask&logoColor=white"/>
-<img src="https://img.shields.io/badge/Aframe.js-EF2D5E?style=flat-square&logo=aframe&logoColor=white"/>
+<img src="https://img.shields.io/badge/Flask-3776AB?style=flat-square&logo=flask&logoColor=white"/><img src="https://img.shields.io/badge/Aframe.js-EF2D5E?style=flat-square&logo=aframe&logoColor=white"/>
 <img src="https://img.shields.io/badge/Open_ai-412991?style=flat-square&logo=openai&logoColor=white"/>
 
 ## 알고리즘
