@@ -14,7 +14,7 @@ def video_generate(wafaw:str, story:str):
   task = client.image_to_video.create(
     model='gen3a_turbo',
     # Point this at your own image file
-    prompt_image=f'https://playflashback.xyz/static{wafaw}.png',
+    prompt_image=f'https://playflashback.xyz/static/{wafaw}.png',
     prompt_text=story,
   )
   task_id = task.id

@@ -6,6 +6,7 @@ import img_prompt
 from random import randint
 import illegal_pormpt
 import img_to_mp4
+import urllib.request
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico'}
 flask = Flask(__name__)
@@ -23,9 +24,9 @@ def main():
 def viewer():
     return render_template("viewer.html",file=session['file_name']+'_faded')
 
-@flask.route("/viewer_video/<string:url>")
-def viewer_video(url):
-    return render_template("viewer_video.html",file=url)
+@flask.route("/viewer_video")
+def viewer_video():
+    return render_template("viewer_video.html",file=session['file_name'])
 
 @flask.route("/information")
 def info():
@@ -79,7 +80,9 @@ def post_video():
     Storyboard = request.form.get("storyboard","")
     file_name = session['file_name']
     video_url = img_to_mp4.video_generate(file_name,Storyboard)
-    return video_url
+    urllib.request.urlretrieve(video_url,f"static/{file_name}.mp4")
+    print("RUNWAY API에서 영상 저장완료")
+    return file_name
 
 if __name__ == '__main__':  #C언어의 main 함수와 같은 개념의 조건문
     flask.run(debug=True,host='0.0.0.0')
