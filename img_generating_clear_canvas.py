@@ -6,7 +6,7 @@ def canvas_clear() :
     new_image = Image.open("static/original_image.png")
 
     # Create a new transparent canvas
-    canvas_size = (2012, 1024)
+    canvas_size = (3000, 1024)
     new_canvas = Image.new("RGBA", canvas_size, (255, 255, 255, 0))
 
     # Calculate position to center the new image on the canvas
@@ -33,7 +33,7 @@ def after_process_image(file_path: Image):
     new_image = fade_edges(new_image)
 
     # Create a new transparent canvas
-    width, height = (2200, 1900)
+    width, height = (2150, 1500)
     top_color, bottom_color = split_and_find_colors(new_image)
     new_canvas = Image.new("RGBA", (width, height))
 
