@@ -12,6 +12,12 @@ import make_music
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico'}
 flask = Flask(__name__)
 flask.secret_key = 'LN$oaYB9-5KBT7G'
+# 요청 객체 생성
+REQUEST_HEADER = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    'Referer': 'https://www.example.com',  # 필요한 경우 referer URL 추가
+    'Accept': 'audio/mpeg, audio/x-mpeg, audio/x-mpeg-3, audio/x-mpeg-4, audio/mp3, audio/aac, audio/aacp, audio/x-aac'
+}
 
 def allowed_file(filename: str) -> bool:
     '''이미지가 변환 가능한 확장자 명을 가졌는지 확인'''
@@ -70,9 +76,21 @@ def post_image():
         # 앱 설정에 프롬프트 저장 및 이미지 처리 호출
         app.config["prompt"] = prompt
         app.image_processing(session['file_name'])
-        img_generating_clear_canvas.after_process_image(session['file_name'])
         music_url = make_music.generate_music(prompt)
-        urllib.request.urlretrieve(music_url,f"static/{session['file_name']}.mp3")
+        req = urllib.request.Request(music_url, headers=REQUEST_HEADER) # 요청 객체 생성
+        try:
+            # URL 열기
+            with urllib.request.urlopen(req) as response:
+                # 응답 내용 읽기
+                content = response.read()
+                # 파일 다운로드
+                with open(f'static/{session["file_name"]}.mp3', 'wb') as f:
+                    f.write(content)
+            print("파일 다운로드 완료.")
+        except urllib.error.HTTPError as e:
+            print(f"HTTPError: {e.code} - {e.reason}")
+        except urllib.error.URLError as e:
+            print(f"URLError: {e.reason}")
 
         return session['file_name']  # 처리된 파일 이름 반환
     else:

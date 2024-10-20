@@ -76,7 +76,7 @@ def validate_environment():
     if src_image.size != mask_image.size:
         raise ValueError("소스 이미지와 마스크 이미지의 해상도가 다릅니다.")
 
-def resize_image(image_path, width, height):
+def resize_image(image_path:str, width:int, height:int):
     try:
         with Image.open(image_path) as img:
             img = img.resize((width, height))
@@ -85,8 +85,6 @@ def resize_image(image_path, width, height):
     except Exception as e:
         print(f"이미지를 리사이즈하는 중 오류 발생: {e}")
         raise
-
-
 
 # 메인 함수
 def image_processing(file_name:str):
@@ -109,7 +107,7 @@ def image_processing(file_name:str):
             print(f"{idx + 1}번째 이미지가 성공적으로 다운로드되었습니다.")
 
             # 이미지 크기 조정 (최종 outpainting 된 이미지의 해상도)
-            resize_image(output_filename, 2200,1100)            
+            resize_image(output_filename, 2200,1100)       
     except Exception as e:
         print(f"오류: {e}")
         return

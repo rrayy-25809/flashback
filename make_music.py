@@ -12,7 +12,7 @@ headers = {
     "Content-Type": "application/json"
 }
 
-def music_generate(prompt):
+def generate_music(prompt):
     payload = {
         "prompt": prompt,
         "make_instrumental": True,
@@ -32,4 +32,4 @@ def music_generate(prompt):
         return "https://cdn.aimlapi.com/suno/99a82d0d-2f6a-4720-b25e-ad0e47a5ce63.mp3"
     
 if __name__ == '__main__':  #C언어의 main 함수와 같은 개념의 조건문
-    print(music_generate("create a healing music"))
+    print(generate_music("create a healing music"))
