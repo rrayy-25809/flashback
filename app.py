@@ -3,8 +3,6 @@ import requests
 from PIL import Image
 import openai
 from dotenv import load_dotenv
-
-# 환경 변수 로드
 load_dotenv()
 
 # 구성 설정(딕셔너리 형태)
@@ -12,7 +10,7 @@ config = {
     "src_image_name": "src.png",
     "mask_image_name": "mask.png",
     "number_of_images": 1,
-    "prompt": "high mountain",  # 여기에서 프롬프트를 입력하세요
+    "prompt": "high mountain",  #프롬프트를 입력란
     "src_folder_path": "src",
     "rgba_folder_path": "rgba",
     "static_folder_path": "static",
@@ -21,7 +19,6 @@ config = {
 # OpenAI API 초기화
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# 유틸리티 함수
 def convert_image_to_rgba(image_path, output_path):
     try:
         with Image.open(image_path) as img:
@@ -53,7 +50,7 @@ def process_images_with_openai(src_image, mask_image, prompt, n):
         print("이미지를 OpenAI로 전송 중... (몇 초 정도 소요됩니다)")
         response = openai.Image.create_edit(
             n=n,
-            image=open(src_image, "rb"),
+            image=open(src_image, "rb"),  #읽기 형식으로 이미지 열기
             mask=open(mask_image, "rb"),
             prompt=prompt,
         )
@@ -61,7 +58,7 @@ def process_images_with_openai(src_image, mask_image, prompt, n):
     except Exception as e:
         print(f"이미지를 OpenAI로 전송하는 중 오류 발생: {e}")
         raise
-
+#환경 검증 및 오류 raise 함수
 def validate_environment():
     if not openai.api_key:
         raise ValueError("OpenAI API 키가 .env 파일에서 찾을 수 없습니다.")
@@ -89,7 +86,9 @@ def resize_image(image_path, width, height):
         print(f"이미지를 리사이즈하는 중 오류 발생: {e}")
         raise
 
-# 핵심 함수
+
+
+# 메인 함수
 def image_processing(file_name:str):
     try:
         validate_environment()
@@ -109,13 +108,11 @@ def image_processing(file_name:str):
             download_and_save_image(data['url'], output_filename)
             print(f"{idx + 1}번째 이미지가 성공적으로 다운로드되었습니다.")
 
-            # 이미지 크기 조정 (필요한 경우)
-            resize_image(output_filename, 2200,1100)
-            
+            # 이미지 크기 조정 (최종 outpainting 된 이미지의 해상도)
+            resize_image(output_filename, 2200,1100)            
     except Exception as e:
         print(f"오류: {e}")
         return
 
-if __name__ == "__main__":
+if __name__ == "__main__":  #C언어의 main 함수와 같은 개념의 조건문
     image_processing()
-    # ask_user()
