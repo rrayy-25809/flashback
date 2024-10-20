@@ -1,7 +1,6 @@
 var sliced = location.href.slice(0, -5);
 const post_image = sliced+'post_image'; // 요청을 보낼 URL
 const post_video = sliced+'post_video'; // 요청을 보낼 URL
-//for test: document.body.innerHTML = output_image('/static/675.png')
 // 이미지와 스토리보드 HTML 템플릿을 반환하는 함수
 function output_image(img) {
     const output_image = `
@@ -97,7 +96,6 @@ function next() {
     .then(data => {
         console.log('성공:', data);
         hideLoading();  // 로딩 오버레이 숨기기
-        window.open(`/viewer_video/${data}`)
     })
     .catch(error => {
         console.log('오류:', error);

@@ -17,11 +17,13 @@
 
       <!-- Load video assets -->
       <a-assets>
+        <audio id="river" src="static/{{file}}.mp3" preload="auto"></audio>
         <video id="curvedvideo" src="static/{{file}}.mp4" autoplay loop="true" webkit-playsinline playsinline></video>
       </a-assets>
 
       <!-- Curved video display -->
       <a-videosphere src="#curvedvideo" radius="5" theta-length="270" height="9" rotation="0 0 0" position="0 1.6 0"></a-videosphere>
+      <a-entity sound="src: #river"></a-entity>
     </a-scene>
 
     <!-- Fallback content for unsupported browsers -->

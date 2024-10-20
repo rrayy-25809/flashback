@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect
 from PIL import Image
 import app
 import img_generating_clear_canvas
@@ -7,6 +7,7 @@ from random import randint
 import illegal_pormpt
 import img_to_mp4
 import urllib.request
+import make_music
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico'}
 flask = Flask(__name__)
@@ -22,7 +23,7 @@ def main():
 
 @flask.route("/viewer")
 def viewer():
-    return render_template("viewer.html",file=session['file_name']+'_faded')
+    return render_template("viewer.html",file=session['file_name'])#+'_faded')
 
 @flask.route("/viewer_video")
 def viewer_video():
@@ -70,6 +71,8 @@ def post_image():
         app.config["prompt"] = prompt
         app.image_processing(session['file_name'])
         img_generating_clear_canvas.after_process_image(session['file_name'])
+        music_url = make_music.generate_music(prompt)
+        urllib.request.urlretrieve(music_url,f"static/{session['file_name']}.mp3")
 
         return session['file_name']  # 처리된 파일 이름 반환
     else:
@@ -79,10 +82,14 @@ def post_image():
 def post_video():
     Storyboard = request.form.get("storyboard","")
     file_name = session['file_name']
-    video_url = img_to_mp4.video_generate(file_name,Storyboard)
-    urllib.request.urlretrieve(video_url,f"static/{file_name}.mp4")
-    print("RUNWAY API에서 영상 저장완료")
-    return file_name
+    try:
+        video_url = img_to_mp4.video_generate(file_name,Storyboard)
+        urllib.request.urlretrieve(video_url,f"static/{file_name}.mp4")
+        print("RUNWAY API에서 영상 저장완료")
+        return redirect("/viewer_video")
+    except Exception as e:
+        print(e)
+        return 500
 
 if __name__ == '__main__':  #C언어의 main 함수와 같은 개념의 조건문
     flask.run(debug=True,host='0.0.0.0')
