@@ -2,7 +2,8 @@ import requests
 import os
 from dotenv import load_dotenv
 import json
-
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 load_dotenv(verbose=True)
 SUNO_AI_API_KEY=os.getenv('SUNO_AI_API_KEY')
 
