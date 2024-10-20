@@ -15,7 +15,6 @@ flask.secret_key = 'LN$oaYB9-5KBT7G'
 # 요청 객체 생성
 REQUEST_HEADER = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-    'Referer': 'https://www.example.com',  # 필요한 경우 referer URL 추가
     'Accept': 'audio/mpeg, audio/x-mpeg, audio/x-mpeg-3, audio/x-mpeg-4, audio/mp3, audio/aac, audio/aacp, audio/x-aac'
 }
 
@@ -25,7 +24,7 @@ def allowed_file(filename: str) -> bool:
 
 @flask.route("/")
 def main():
-    return render_template("index.html")#메인페이지
+    return render_template("index.html")
 
 @flask.route("/viewer")
 def viewer():
