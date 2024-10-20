@@ -6,7 +6,7 @@ headers = {
     "Content-Type": "application/json"
 }
 payload = {
-    "prompt": "Create a relaxing ambient music track",
+    "prompt": "create a music that ",
     "make_instrumental": True,
     "wait_audio": True
 }
