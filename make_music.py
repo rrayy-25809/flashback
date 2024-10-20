@@ -1,8 +1,12 @@
 import requests
+import os
+from dotenv import load_dotenv
+load_dotenv(verbose=True)
+SUNO_AI_API_KEY=os.getenv('SUNO_AI_API_KEY')
 
 url = "https://api.aimlapi.com/generate"
 headers = {
-    "Authorization": "Bearer de35b220fdf0450588dd4654e67fe191",
+    "Authorization": f"Bearer {SUNO_AI_API_KEY}",
     "Content-Type": "application/json"
 }
 payload = {
