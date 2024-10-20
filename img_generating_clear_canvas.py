@@ -1,6 +1,4 @@
 from PIL import Image
-import numpy as np
-from collections import Counter
 
 def canvas_clear() :
     new_image = Image.open("static/original_image.png")
@@ -13,10 +11,10 @@ def canvas_clear() :
     new_image_size = new_image.size
     position = ((canvas_size[0] - new_image_size[0]) // 2, (canvas_size[1] - new_image_size[1]) // 2)
 
-#새로운 이미지를 빈 캔버스에 붙이기
+    #새로운 이미지를 빈 캔버스에 붙이기
     new_canvas.paste(new_image, position, new_image.convert("RGBA"))
 
-#이미지 저장
+    #이미지 저장
     new_output_path1 = "src/src.png"
     new_output_path2 = "src/mask.png"
     new_output_path3 = "src/sample.png"

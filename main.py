@@ -75,17 +75,14 @@ def post_image():
         # 앱 설정에 프롬프트 저장 및 이미지 처리 호출
         app.config["prompt"] = prompt
         app.image_processing(session['file_name'])
-        music_url = make_music.generate_music(prompt)
-        req = urllib.request.Request(music_url, headers=REQUEST_HEADER) # 요청 객체 생성
         try:
-            # URL 열기
-            with urllib.request.urlopen(req) as response:
-                # 응답 내용 읽기
-                content = response.read()
-                # 파일 다운로드
+            music_url = make_music.generate_music(prompt)
+            req = urllib.request.Request(music_url, headers=REQUEST_HEADER) # 요청 객체 생성
+            with urllib.request.urlopen(req) as response:   # URL 열기
+                content = response.read()   # 응답 내용 읽기
                 with open(f'static/{session["file_name"]}.mp3', 'wb') as f:
                     f.write(content)
-            print("파일 다운로드 완료.")
+            print("mp3 파일 다운로드 완료.")
         except urllib.error.HTTPError as e:
             print(f"HTTPError: {e.code} - {e.reason}")
         except urllib.error.URLError as e:
@@ -101,7 +98,11 @@ def post_video():
     file_name = session['file_name']
     try:
         video_url = img_to_mp4.video_generate(file_name,Storyboard)
-        urllib.request.urlretrieve(video_url,f"static/{file_name}.mp4")
+        req = urllib.request.Request(video_url, headers=REQUEST_HEADER) # 요청 객체 생성
+        with urllib.request.urlopen(req) as response:   # URL 열기
+                content = response.read()   # 응답 내용 읽기
+                with open(f'static/{session["file_name"]}.mp3', 'wb') as f:
+                    f.write(content)
         print("RUNWAY API에서 영상 저장완료")
         return redirect("/viewer_video")
     except Exception as e:
