@@ -30,4 +30,4 @@ def ask_openai(description:str):
 
 if __name__ == "__main__":#테스트를 위한 코드
     answer = ask_openai("초겨울 그러니까 하늘은 높고 춥긴 하지만 눈은 없는 설악산 대청봉")
-    print(f"{answer}")
+    print(str(answer))

@@ -1,7 +1,8 @@
 var sliced = location.href.slice(0, -5);
 const post_image = sliced+'post_image'; // 요청을 보낼 URL
 const post_video = sliced+'post_video'; // 요청을 보낼 URL
-// 이미지와 스토리보드 HTML 템플릿을 반환하는 함수
+/**이미지와 스토리보드 HTML 템플릿을 반환하는 함수
+*/ 
 function output_image(img) {
     const output_image = `
     <div class="top_bar">
@@ -24,17 +25,20 @@ function output_image(img) {
     return output_image;
 }
 
-// 로딩 오버레이를 화면에 표시하는 함수
+/** 로딩 오버레이를 화면에 표시하는 함수
+*/
 function showLoading() {
     document.getElementById('loading-overlay').style.display = 'flex';
 }
 
-// 로딩 오버레이를 화면에서 숨기는 함수
+/** 로딩 오버레이를 화면에서 숨기는 함수
+ */
 function hideLoading() {
     document.getElementById('loading-overlay').style.display = 'none';
 }
 
-// 이미지와 텍스트 입력을 받아 처리한 후, 결과를 화면에 표시하는 함수
+/** 이미지와 텍스트 입력을 받아 처리한 후, 결과를 화면에 표시하는 함수
+*/
 function generate() {
     const image_input = document.getElementById("image-input");
     const file = image_input.files[0]; // 선택된 파일 가져오기
@@ -75,7 +79,8 @@ function generate() {
     }
 }
 
-// 다음 단계를 처리하는 함수
+/** Next 버튼을 누르면 영상을 만드는 단계를 처리하는 함수
+*/
 function next() {
     const storyboard = document.getElementById("storyboard").value;
     showLoading();  // 로딩 오버레이 표시
