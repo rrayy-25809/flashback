@@ -20,7 +20,7 @@ def ask_openai(description:str):
             #유저의 입력을 변수화하여 매개변수로 받아 프롬포트를 입력함 
         ],
         max_tokens=1000,
-        temperature=0.1, #너무 높이니까 이상해짐
+        temperature=0.1, #이미지 생성할때 인공지능의 창의성(높이니까 이상해짐)
         top_p=1, 
         n=1, #횟수
         stop=None,
@@ -28,6 +28,6 @@ def ask_openai(description:str):
     answer = response.choices[0].message['content'].strip()
     return answer
 
-if __name__ == "__main__":#테스트를 위한 코드
+if __name__ == "__main__": #테스트를 위한 코드
     answer = ask_openai("초겨울 그러니까 하늘은 높고 춥긴 하지만 눈은 없는 설악산 대청봉")
     print(str(answer))
