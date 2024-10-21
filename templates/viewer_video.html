@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flashback Viewer</title>
+    <title>Flashback-viewer</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
   </head>
@@ -22,7 +22,7 @@
       </a-assets>
 
       <!-- Curved video display -->
-      <a-videosphere src="#curvedvideo" radius="5" theta-length="270" height="9" rotation="0 0 0" position="0 1.6 0"></a-videosphere>
+      <a-videosphere src="#curvedvideo" radius="6" theta-length="270" height="9" rotation="0 0 0" position="0 0 0"></a-videosphere>
       <a-entity sound="src: #river"></a-entity>
     </a-scene>
 
