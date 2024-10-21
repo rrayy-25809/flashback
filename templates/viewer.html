@@ -25,11 +25,6 @@
     <script>
       // Ensure video plays after the page loads
       window.addEventListener('click',() => {
-        var video = document.querySelector('#curvedvideo');
-        video.play().catch((error) => {
-          console.error('Autoplay failed:', error);
-          // Optionally, you can show a message to the user or provide a play button
-        });
         var audio = document.querySelector('#river');
         audio.play().catch((error) => {
           console.error('Autoplay failed:', error);
