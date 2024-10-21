@@ -18,14 +18,29 @@
       <!-- Load video assets -->
       <a-assets>
         <audio id="river" src="static/{{file}}.mp3" preload="auto"></audio>
-        <video id="curvedvideo" src="static/{{file}}.mp4" autoplay loop="true" webkit-playsinline playsinline></video>
+        <video id="curvedvideo" src="static/{{file}}.mp4" loop="true" webkit-playsinline playsinline></video>
       </a-assets>
 
       <!-- Curved video display -->
       <a-videosphere src="#curvedvideo" radius="6" theta-length="270" height="9" rotation="0 0 0" position="0 0 0"></a-videosphere>
-      <a-entity sound="src: #river"></a-entity>
+      <a-entity sound="src: #river; autoplay: false;"></a-entity>
     </a-scene>
 
+    <script>
+      // Ensure video plays after the page loads
+      window.addEventListener('click',() => {
+        var video = document.querySelector('#curvedvideo');
+        video.play().catch((error) => {
+          console.error('Autoplay failed:', error);
+          // Optionally, you can show a message to the user or provide a play button
+        });
+        var audio = document.querySelector('#river');
+        audio.play().catch((error) => {
+          console.error('Autoplay failed:', error);
+          // Optionally, you can show a message to the user or provide a play button
+        });
+      });
+    </script>
     <!-- Fallback content for unsupported browsers -->
     <noscript>
       <p>Your browser does not support A-Frame. Please enable JavaScript or use a compatible browser.</p>
