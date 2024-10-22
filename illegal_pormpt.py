@@ -24,4 +24,3 @@ def illegal_prompt1(prompt: str):
         if word in prompt:
             found_illegal = True
             break  # 금지된 단어를 발견하면 반복문 종료
-    return found_illegal
