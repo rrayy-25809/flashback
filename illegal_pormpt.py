@@ -20,7 +20,7 @@ def illegal_prompt1(prompt: str):
     ]
 
     found_illegal = False
-    for word in illegal_list:
+    for word in illegal_list: #금지된 단어를 발견하면 반복문 종료
         if word in prompt:
             found_illegal = True
-            break  # 금지된 단어를 발견하면 반복문 종료
+            break 
