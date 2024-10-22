@@ -26,15 +26,17 @@ def canvas_clear() :
 
     return new_output_path1, new_output_path2, new_output_path3
 
+#양쪽 끝 이미지 crop해서 새로운 마스크 이미지 생성
 def second_canvas(file_name: str):
     image = Image.open(f"static/{file_name}.png")
     w, h = image.size
 
+    #crop(x시작, y시작, x끝, y끝)
     # 왼쪽 600픽셀을 자른 이미지
     left_cropped = image.crop((0, 0, 600, h))
     left_cropped.save(f"static/left_cropped_{file_name}.png")
     
-    # 오른쪽 600픽셀을 자른 이미지
+    # 오른쪽 600픽셀을 자른 이미지  
     right_cropped = image.crop((w - 600, 0, w, h))
     right_cropped.save(f"static/right_cropped_{file_name}.png")
     
@@ -62,6 +64,7 @@ def second_canvas(file_name: str):
 
     return new_output_path1, new_output_path2, new_output_path3
 
+#두개의 아웃페인팅 된 이미지를 이어붙이는 함수
 def paste_imgs(file_name:str):
     org_img = Image.open(f"static/{file_name}.png")
     cropped_img = Image.open(f"static/{file_name}_cropped.png")

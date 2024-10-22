@@ -28,6 +28,6 @@ def ask_openai(description:str):
     answer = response.choices[0].message['content'].strip()
     return answer
 
-if __name__ == "__main__": #테스트를 위한 코드
-    answer = ask_openai("초겨울 그러니까 하늘은 높고 춥긴 하지만 눈은 없는 설악산 대청봉")
+if __name__ == "__main__": #C언어의 main 함수와 같은 개념의 조건문(테스트용)
+    answer = ask_openai("")
     print(str(answer))
