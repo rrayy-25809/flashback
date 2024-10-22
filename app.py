@@ -46,6 +46,7 @@ def check_and_create_folder(folder_path):
         print(f"{folder_path} 폴더가 생성되었습니다.")
 
 def process_images_with_openai(src_image, mask_image, prompt, n):
+    print(prompt)
     try:
         print("이미지를 OpenAI로 전송 중... (몇 초 정도 소요됩니다)")
         response = openai.Image.create_edit(
@@ -108,7 +109,7 @@ def image_processing(file_name:str):
             print(f"{idx + 1}번째 이미지가 성공적으로 다운로드되었습니다.")
 
             # 이미지 크기 조정 (최종 outpainting 된 이미지의 해상도)
-            resize_image(output_filename, 3600,1800)            
+            resize_image(output_filename, 3600,1800)
     except Exception as e:
         print(f"오류: {e}")
         return

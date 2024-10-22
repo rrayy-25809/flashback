@@ -43,9 +43,9 @@ def input_page():
     return render_template("input.html")
 
 def image_resize(img: Image) -> Image:
-    """이미지를 같은 비율의 크기로 리사이즈 하는 함수(최대 1024 X 1024)"""
+    """이미지를 같은 비율의 크기로 리사이즈 하는 함수(최대 512 X 512)"""
     width, height = img.size
-    new_size = (1024, int((height / width) * 1024)) if width >= height else (int((width / height) * 1024), 1024)
+    new_size = (512, int((height / width) * 512)) if width >= height else (int((width / height) * 512), 512)
 
     resized_img = img.resize(new_size, Image.LANCZOS)
     print(f"Resized resolution: {new_size[0]}x{new_size[1]}")
