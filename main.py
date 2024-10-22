@@ -71,10 +71,15 @@ def post_image():
         img = image_resize(Image.open(f.stream))
         img.save("static/original_image.png", "PNG")
         img_generating_clear_canvas.canvas_clear()  # 캔버스 클리어
-        
-        # 앱 설정에 프롬프트 저장 및 이미지 처리 호출
-        app.config["prompt"] = prompt
+        app.config["prompt"] = prompt    # 앱 설정에 프롬프트 저장 및 이미지 처리 호출
         app.image_processing(session['file_name'])
+        imgs = img_generating_clear_canvas.second_canvas(session['file_name'])
+        out = app.process_images_with_openai(imgs[0],imgs[1],prompt,1)
+        for idx, data in enumerate(out):
+            app.download_and_save_image(data['url'], f"static/{session['file_name']}_cropped.png")
+            img2 = Image.open(f"static/{session['file_name']}_cropped.png").resize((1800,1800), Image.LANCZOS)
+            img2.save(f"static/{session['file_name']}_cropped.png")
+            print(f"{idx + 2}번째 이미지가 성공적으로 다운로드되었습니다.")
         try:
             music_url = make_music.generate_music(prompt)
             req = urllib.request.Request(music_url, headers=REQUEST_HEADER) # 요청 객체 생성
@@ -87,7 +92,7 @@ def post_image():
             print(f"HTTPError: {e.code} - {e.reason}")
         except urllib.error.URLError as e:
             print(f"URLError: {e.reason}")
-
+        img_generating_clear_canvas.paste_imgs(session['file_name'])
         return session['file_name']  # 처리된 파일 이름 반환
     else:
         return "파일이 전송되지 않았거나 지원하지 않는 방식입니다.", 400
