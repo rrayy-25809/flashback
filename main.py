@@ -102,11 +102,11 @@ def post_video():
     Storyboard = request.form.get("storyboard","")
     file_name = session['file_name']
     try:
-        video_url = img_to_mp4.video_generate(file_name,Storyboard)
+        video_url = img_to_mp4.video_generate(file_name,Storyboard)[0]
         req = urllib.request.Request(video_url, headers=REQUEST_HEADER) # 요청 객체 생성
         with urllib.request.urlopen(req) as response:   # URL 열기
             content = response.read()   # 응답 내용 읽기
-            with open(f'static/{session["file_name"]}.mp3', 'wb') as f:
+            with open(f'static/{session["file_name"]}.mp4', 'wb') as f:
                 f.write(content)
         print("RUNWAY API에서 영상 저장완료")
         return redirect("/viewer_video")
