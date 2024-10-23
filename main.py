@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, session, redirect
 from PIL import Image
 import app
 import img_generating_clear_canvas
-import img_lens
 import img_prompt
 from random import randint
 import illegal_pormpt
@@ -76,10 +75,7 @@ def process_image_upload(file, description, is_remix):
 
     music_url = make_music.generate_music(prompt)
     download_and_save_file(music_url, f'static/{session["file_name"]}.mp3', "음악")
-
     img_generating_clear_canvas.paste_imgs(session['file_name'])
-    img_lens.img_pano(session['file_name'])
-
     return session['file_name']
 
 @flask.route("/")
@@ -88,11 +84,13 @@ def main():
 
 @flask.route("/viewer")
 def viewer():
-    return render_template("viewer.html", file=session['file_name'])
+    file = session['file_name']
+    return render_template("viewer.html", file=file, color=fade_in_out.find_color(file))
 
 @flask.route("/viewer_video")
 def viewer_video():
-    return render_template("viewer_video.html",file=session['file_name'])
+    file = session['file_name']
+    return render_template("viewer_video.html", file=file, color=fade_in_out.find_color(file))
 
 @flask.route("/information")
 def info():
