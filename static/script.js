@@ -101,7 +101,7 @@ function next() {
     .then(data => {
         console.log('성공:', data);
         hideLoading();  // 로딩 오버레이 숨기기
-        window.open('/viewer_video')
+        document.getElementsByClassName("buttons")[0].innerHTML =`<button class="button-vr" onclick="window.open('/viewer_video')"></button>`
     })
     .catch(error => {
         console.log('오류:', error);
