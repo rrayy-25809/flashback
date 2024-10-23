@@ -9,6 +9,7 @@ import illegal_pormpt
 import img_to_mp4
 import urllib.request
 import make_music
+import fade_in_out
 
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'bmp', 'tiff', 'svg', 'webp', 'ico']
 flask = Flask(__name__)
