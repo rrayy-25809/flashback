@@ -119,10 +119,10 @@ def post_video():
     try:
         video_url = img_to_mp4.video_generate(file_name, Storyboard)[0]
         download_and_save_file(video_url, f'static/{session["file_name"]}.mp4', "비디오")
-        return 200
+        return "파일이 잘 전송된!",200
     except Exception as e:
         print(e)
-        return 500
+        return "파일이 잘 전송되지 않은!",500
 
 if __name__ == '__main__':
     flask.run(debug=True, host='0.0.0.0')

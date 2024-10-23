@@ -4,7 +4,10 @@ from collections import Counter
 
 def find_color(file_name:str):
     img = Image.open(f'static/{file_name}_outpainted.png')
-    r,g,b = split_and_find_colors(img)
+    colors = split_and_find_colors(img)
+    r = colors[0]
+    g = colors[1]
+    b = colors[2]
     return '#' + hex(r)[2:].zfill(2) + hex(g)[2:].zfill(2) + hex(b)[2:].zfill(2)
 
 def split_and_find_colors(image:Image, portion=0.2):  
