@@ -5,7 +5,7 @@ language
 
 <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white"/> <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"/> <img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS-3776AB?style=flat-square&logo=css3&logoColor=white"/>
 
-librarys
+library
 
 <img src="https://img.shields.io/badge/Flask-3776AB?style=flat-square&logo=flask&logoColor=white"/> <img src="https://img.shields.io/badge/Aframe.js-EF2D5E?style=flat-square&logo=aframe&logoColor=white"/> <img src="https://img.shields.io/badge/Open_ai-412991?style=flat-square&logo=openai&logoColor=white"/>
 
