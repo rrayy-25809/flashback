@@ -72,11 +72,11 @@ flowchart TD
   C --> E["Validate file & resize via Pillow"]
   D --> E
   E --> F["Save to static/"]
-  F --> G["img_generating_clear_canvas.py\ncreate larger transparent canvas"]
+  F --> G["img_generating_clear_canvas.py create larger transparent canvas"]
   G --> H["Outpainting via ChatGPT API"]
-  H --> I["Save result to static/\nreturn filename"]
+  H --> I["Save result to static/ return filename"]
   I --> J{"Post-process choice"}
-  J -- VR (image) --> K["Add top/bottom space\n(for FOV)"]
+  J -- VR (image) --> K["Add top/bottom space (for FOV)"]
   K --> L["Build VR with A-Frame"]
   J -- Video --> M["Generate video via Runway API"]
   M --> N["Build VR scene with video (A-Frame)"]
