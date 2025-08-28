@@ -32,28 +32,57 @@
 
 ## ⚡ 작동 알고리즘 (Workflow)
 
-1. **이미지 업로드**
-   - 사용자가 웹에서 사진과 프롬프트(선택)를 업로드
-   - 프롬프트가 없을 경우 OpenAI API로 이미지 특징을 분석하여 자동 생성
+1) **입력 수집 (POST)**
+   - 사용자가 **사진**과 함께 **prompt** 또는 **특징(feature)** 을 제출.
+   - 특징만 받은 경우, **ChatGPT API**로 특징을 바탕으로 **prompt 자동 생성**.
 
-2. **이미지 전처리**
-   - Pillow로 원본 사진 크기 조정
-   - 해상도 손실을 최소화하기 위해 이미지를 분할
+2) **이미지 검증 & 전처리**
+   - 업로드된 파일 형식/크기 검증.
+   - **Pillow**로 **해상도 조정** 및 기본 정규화.
+   - 전처리된 이미지를 **`static/` 폴더**에 저장.
 
-3. **Outpainting**
-   - Segmind를 이용해 분할된 이미지를 확장
-   - 확장된 이미지를 이어붙여 고해상도 이미지 완성
+3) **확장 캔버스 생성**
+   - `img_generating_clear_canvas.py` 실행 → **투명 캔버스를 포함한 더 큰 해상도**의 이미지로 변환(확장용 캔버스 마련).
 
-4. **VR 변환**
-   - Flask 서버에서 결과 이미지를 A-Frame.js로 전달
-   - 웹 브라우저 상에서 360° VR처럼 경험 가능
+4) **Outpainting**
+   - 변환된 이미지를 **ChatGPT API 기반 Outpainting**으로 확장.
+   - 결과 이미지를 **`static/` 폴더**에 저장하고 **파일명 반환**.
 
-5. **멀티모달 확장**
-   - **Suno** : 사용자의 감정/사진 분위기에 맞는 음악 자동 생성
-   - **Runway** : 확장된 이미지와 음악을 합쳐 몰입형 동영상 생성
+5) **후처리 분기 (사용자 선택)**
+   - 반환된 파일명을 바탕으로 결과 이미지를 로드하고,
+   - **① 스토리보드 추가하여 “영상화”** 할지,
+   - **② 이미지 기반 “VR 환경”** 을 만들지 선택 받음.
+
+6-A) **VR 환경 생성 (이미지)**
+   - 단순 VR 선택 시, 결과 이미지의 **위/아래 공간을 생성**(시야 보정).
+   - **A-Frame**으로 **브라우저 기반 VR 환경** 구성.
+
+6-B) **영상화 + VR**
+   - “영상화” 선택 시, **Runway API**로 결과 이미지(+스토리보드)를 **동영상 생성**.
+   - 생성된 영상을 **A-Frame**에 배치해 **VR 시청 환경**으로 제공.
 
 ---
 
+### 🗺️ Mermaid Flow
+```mermaid
+flowchart TD
+  A["POST /upload image + (prompt or features)"] --> B{"prompt provided?"}
+  B -- yes --> C["Use user prompt"]
+  B -- no (features only) --> D["Generate prompt via ChatGPT API"]
+  C --> E["Validate file & resize via Pillow"]
+  D --> E
+  E --> F["Save to static/"]
+  F --> G["img_generating_clear_canvas.py\ncreate larger transparent canvas"]
+  G --> H["Outpainting via ChatGPT API"]
+  H --> I["Save result to static/\nreturn filename"]
+  I --> J{"Post-process choice"}
+  J -- VR (image) --> K["Add top/bottom space\n(for FOV)"]
+  K --> L["Build VR with A-Frame"]
+  J -- Video --> M["Generate video via Runway API"]
+  M --> N["Build VR scene with video (A-Frame)"]
+```
+
+---
 ## 📌 향후 개선 계획
 - 📱 모바일 앱 전환 (웹→앱 변환 시스템 활용)  
 - 🔧 Outpainting 결과물 자연스러움 개선 (세분화 Inpainting 알고리즘 적용)  
