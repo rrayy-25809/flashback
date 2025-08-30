@@ -2,7 +2,7 @@ Flask==2.2.5
 gunicorn==23.0.0
 openai==0.28.0
 runwayml==2.0.0
-torch==2.3.1
+torch==2.8.0
 transformers==4.42.4
 accelerate==0.32.1
 pillow==10.3.0
